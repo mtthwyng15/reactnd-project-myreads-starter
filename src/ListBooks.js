@@ -16,18 +16,21 @@ class ListBooks extends Component {
       return book.shelf === "read";
     });
 
-    return (<div className="list-books">
+    return(
+      <div className="list-books">
+
       <div className="list-books-title">
         <h1>MyReads</h1>
       </div>
 
-      <Bookshelf key="currentlyReading" books={currentlyReading} shelf="Currently Reading"></Bookshelf>
+      <Bookshelf key="currentlyReading" books={currentlyReading} changeShelf={this.props.changeShelf} shelf="Currently Reading"></Bookshelf>
 
-      <Bookshelf key="wantToRead" books={wantToRead} shelf="Want To Read"></Bookshelf>
+      <Bookshelf key="wantToRead" books={wantToRead} changeShelf={this.props.changeShelf} shelf="Want To Read"></Bookshelf>
 
-      <Bookshelf key="Read" books={read} shelf="Read"></Bookshelf>
+      <Bookshelf key="Read" books={read} changeShelf={this.props.changeShelf} shelf="Read"></Bookshelf>
 
-    </div>)
+    </div>
+  )
   }
 }
 
