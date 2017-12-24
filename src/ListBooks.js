@@ -19,18 +19,21 @@ class ListBooks extends Component {
     return(
       <div className="list-books">
 
-      <div className="list-books-title">
-        <h1>MyReads</h1>
+        <div className="list-books-title">
+          <h1>MyReads</h1>
+        </div>
+
+        <div className="list-books-content">
+          <Bookshelf key="currentlyReading" books={currentlyReading} changeShelf={this.props.changeShelf} shelf="Currently Reading"></Bookshelf>
+
+          <Bookshelf key="wantToRead" books={wantToRead} changeShelf={this.props.changeShelf} shelf="Want To Read"></Bookshelf>
+
+          <Bookshelf key="Read" books={read} changeShelf={this.props.changeShelf} shelf="Read"></Bookshelf>
+
+        </div>
+
       </div>
-
-      <Bookshelf key="currentlyReading" books={currentlyReading} changeShelf={this.props.changeShelf} shelf="Currently Reading"></Bookshelf>
-
-      <Bookshelf key="wantToRead" books={wantToRead} changeShelf={this.props.changeShelf} shelf="Want To Read"></Bookshelf>
-
-      <Bookshelf key="Read" books={read} changeShelf={this.props.changeShelf} shelf="Read"></Bookshelf>
-
-    </div>
-  )
+    )
   }
 }
 
