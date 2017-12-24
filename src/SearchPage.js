@@ -7,8 +7,8 @@ class SearchPage extends Component{
 
   state = {
     query: '',
-    books: [],
-    booksFound: []
+    books: []
+//    booksFound: []
   }
 
   updateQuery = (query) => {
@@ -21,12 +21,7 @@ class SearchPage extends Component{
 
     searchBook = (query) => {
       BooksAPI.search(query,20).then((books) => {
-        if(!books || books.error){
-          this.setState({books});
-        }
-        else{
-          this.setState({booksFound: []});
-        }
+        this.setState({books})
       });
     }
 
@@ -62,7 +57,7 @@ class SearchPage extends Component{
                       }}>
                     </div>
 
-                    <ShelfChanger book={this.searchBook(this.state.booksFound)} changeShelf={this.props.changeShelf}/>
+                    <ShelfChanger book={this.searchBook(this.state.books)} changeShelf={this.props.changeShelf}/>
 
                   </div>
 
