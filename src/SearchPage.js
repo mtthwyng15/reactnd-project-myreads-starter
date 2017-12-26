@@ -1,84 +1,78 @@
-import React, {Component} from 'react'
-import * as BooksAPI from './BooksAPI'
-import {Link} from 'react-router-dom'
-import ShelfChanger from './ShelfChanger'
+import React, {Component} from 'react';
+import * as BooksAPI from './BooksAPI';
+import {Link} from 'react-router-dom';
+import ShelfChanger from './ShelfChanger';
 
-class SearchPage extends Component{
+class SearchPage extends Component {
 
-  state = {
-    query: '',
-    books: []
-  }
+ state = {
+   query: '',
+   books: [],
+ };
 
-  updateQuery = (query) => {
-    this.setState({
-      query: query
-    });
+ updateQuery = (query) => {
+   this.setState({
+     query: query,
+   });
 
-    this.searchBook(query);
-    }
+   this.searchBook(query);
+ };
 
-    searchBook = (query) => {
-      BooksAPI.search(query,20).then((books) => {
-        this.setState({books})
-      });
-    }
+ searchBook = (query) => {
+   BooksAPI.search(query, 20).then((books) => {
+     this.setState({books});
+   });
+ };
 
-    render(){
-      const {query} = this.state
-      console.log(query)
+ render() {
+   const {query} = this.state;
+   const defaultImg = 'https://cdn.browshot.com/static/images/not-found.png';
 
-      const imgLink = url => {
-        if(url){
-          return url;
-        }
-        else {
-          return 'https://cdn.browshot.com/static/images/not-found.png';
-        }
-      }
+   return (
 
-      return(
+       <div className="search-books">
+         <div className="search-books-bar">
+           <Link className="close-search" to="/"> Close </Link>
 
-        <div className="search-books">
-          <div className="search-books-bar">
-            <Link className="close-search" to="/"> Close </Link>
+           <div className="search-books-input-wrapper">
+             <input type="text"
+                    placeholder="Search by title or author"
+                    value={query}
+                    onChange={(event) => this.updateQuery(event.target.value.trim())}/>
+           </div>
+         </div>
 
-            <div className="search-books-input-wrapper">
-              <input type="text"
-                placeholder="Search by title or author"
-                value={query}
-                onChange={(event) => this.updateQuery(event.target.value.trim())}/>
-            </div>
-          </div>
+         <div className="search-books-results">
+           <ol className="books-grid">
 
-          <div className="search-books-results">
-            <ol className="books-grid">
+             {(this.state.books.length > 0) &&
+             this.state.books.map((book) => <li key={book.id}>
+               <div className="book">
+                 <div className="book-top">
+                   <div className="book-cover"
+                        style={{
+                          width: 128,
+                          height: 193,
+                          backgroundImage: `
+                            url( ${book.imageLinks ? book.imageLinks.thumbnail : defaultImg})
+                          `
+                        }}>
+                   </div>
 
-              {this.state.books.map((book) => <li key={book.id}>
-                <div className="book">
-                  <div className="book-top">
+                   <ShelfChanger book={this.state.books}
+                                 changeShelf={this.props.changeShelf}/>
 
-                    <div className="book-cover"
-                      style={{
-                        width: 128,
-                        height: 193,
-                        backgroundImage: `url(${imgLink(book.imageLinks.thumbnail) })`
-                      }}>
-                    </div>
-
-                    <ShelfChanger book={this.state.books} changeShelf={this.props.changeShelf}/>
-
-                  </div>
-                  <div className="book-title">{book.title}</div>
-                  <div className="book-authors">{book.authors}</div>
-                </div>
-              </li>)
-            }
-            </ol>
-          </div>
-      </div>
-      )
-    }
-  }
+                 </div>
+                 <div className="book-title">{book.title}</div>
+                 <div className="book-authors">{book.authors}</div>
+               </div>
+             </li>)
+             }
+           </ol>
+         </div>
+       </div>
+   );
+ }
+}
 
 export default SearchPage;
