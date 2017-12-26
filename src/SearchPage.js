@@ -8,7 +8,6 @@ class SearchPage extends Component{
   state = {
     query: '',
     books: []
-//    booksFound: []
   }
 
   updateQuery = (query) => {
@@ -26,8 +25,17 @@ class SearchPage extends Component{
     }
 
     render(){
-      const {query, searchBook} = this.state
+      const {query} = this.state
       console.log(query)
+
+      const imgLink = url => {
+        if(url){
+          return url;
+        }
+        else {
+          return 'https://cdn.browshot.com/static/images/not-found.png';
+        }
+      }
 
       return(
 
@@ -49,18 +57,18 @@ class SearchPage extends Component{
               {this.state.books.map((book) => <li key={book.id}>
                 <div className="book">
                   <div className="book-top">
+
                     <div className="book-cover"
                       style={{
                         width: 128,
                         height: 193,
-                        backgroundImage: "url(" + book.imageLinks.smallThumbnail + ")"
+                        backgroundImage: `url(${imgLink(book.imageLinks.thumbnail) })`
                       }}>
                     </div>
 
-                    <ShelfChanger book={this.searchBook(this.state.books)} changeShelf={this.props.changeShelf}/>
+                    <ShelfChanger book={this.state.books} changeShelf={this.props.changeShelf}/>
 
                   </div>
-
                   <div className="book-title">{book.title}</div>
                   <div className="book-authors">{book.authors}</div>
                 </div>
