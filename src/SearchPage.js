@@ -19,7 +19,7 @@ class SearchPage extends Component {
  };
 
  searchBook = (query) => {
-   BooksAPI.search(query, 20).then((books) => {
+   BooksAPI.search(query, 20).then((books=[]) => {
      this.setState({books});
    });
  };
