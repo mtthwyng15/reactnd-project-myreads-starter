@@ -38,14 +38,6 @@ class BooksApp extends React.Component {
     return (
       <div className="app">
 
-          {/* <div className="list-books"> */}
-
-            {/* <div className="list-books-content">
-              <div>
-                <ListBooks books={this.state.books} changeShelf={this.changeShelf}/>
-              </div>
-            </div> */}
-
             <Route
               exact path="/"
               render={() => (
