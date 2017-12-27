@@ -11,6 +11,11 @@ class BooksApp extends React.Component {
   state = {
     showSearchPage: false,
     books: []
+    // books: {
+    //   currentlyReading: [],
+    //   wantToRead: [],
+    //   read: []
+    // }
   }
 
   componentDidMount() {
@@ -23,9 +28,13 @@ class BooksApp extends React.Component {
     BooksAPI.update(book, shelf).then(books => {
       this.setState({shelf});
     });
+    BooksAPI.getAll().then(books => {
+      this.setState({books});
+    });
   }
 
   render() {
+    console.log(this.state)
     return (
       <div className="app">
 
